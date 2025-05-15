@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }}</title>
+    <style>
+        :root {
+            --primary-color: #4a6da7;
+            --secondary-color: #304878;
+            --accent-color: #6c8fbf;
+            --danger-color: #e74c3c;
+            --danger-dark: #c0392b;
+            --light-bg: #f5f7fa;
+            --text-color: #333;
+            --radius: 8px;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--light-bg);
+            color: var(--text-color);
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            padding: 2rem 1rem;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 500px;
+            background: white;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 2rem;
+            text-align: center;
+        }
+        
+        .alert-icon {
+            width: 80px;
+            height: 80px;
+            background-color: rgba(231, 76, 60, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+        }
+        
+        .alert-icon svg {
+            width: 40px;
+            height: 40px;
+            fill: var(--danger-color);
+        }
+        
+        .page-title {
+            color: var(--danger-color);
+            text-align: center;
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+        }
+        
+        .confirmation-message {
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+            padding: 0 1rem;
+        }
+        
+        .item-name {
+            color: var(--text-color);
+            font-weight: 600;
+            display: block;
+            margin-top: 0.5rem;
+            font-size: 1.25rem;
+            word-break: break-word;
+        }
+        
+        .button-group {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+        
+        .delete-button {
+            background-color: var(--danger-color);
+            color: white;
+            border: none;
+            border-radius: var(--radius);
+            padding: 0.75rem 1.5rem;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .delete-button:hover {
+            background-color: var(--danger-dark);
+            transform: translateY(-2px);
+        }
+        
+        .cancel-button {
+            background-color: transparent;
+            color: var(--primary-color);
+            border: 1px solid var(--primary-color);
+            border-radius: var(--radius);
+            padding: 0.75rem 1.5rem;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .cancel-button:hover {
+            background-color: rgba(74, 109, 167, 0.1);
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="alert-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/>
+            </svg>
+        </div>
+        
+        <h1 class="page-title">{{ title }}</h1>
+        
+        <div class="confirmation-message">
+            <p>¿Estás seguro de que deseas eliminar el cargo:</p>
+            <strong class="item-name">{{ departamento.descripcion }}</strong>
+        </div>
+        
+        <form method="post">
+            {% csrf_token %}
+            <div class="button-group">
+                <button type="submit" class="delete-button">Confirmar eliminación</button>
+                <a href="{% url 'nomina:departamento_list' %}" class="cancel-button">Cancelar</a>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
